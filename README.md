@@ -7,8 +7,8 @@ include the candidate documents for that project. The dataset includes the judgm
 3 annotations for every document. The annotations are combined in the Aggregate column. Use the values of this column as
 the target labels to train and test you models.
 
-The train accuracy of model is 0.9231800766283524
-The test accuracy of model is  0.9367521367521368
+1. The train accuracy of model is 0.9231800766283524
+2. The test accuracy of model is  0.9367521367521368
 
 
 # Application
