@@ -76,10 +76,12 @@ if __name__ == '__main__':
 
     # Apply trained classifier on eis document
     dataset = pd.read_csv('document_records_with_column_names.csv', sep=',', header=0)
-    ids = dataset.iloc[:, 0]  # 14,635
-    titles = dataset.iloc[:, 8]
+    ids = dataset.iloc[:, 0][0:5] # 14,635
+    titles = dataset.iloc[:, 8][0:5]
     pair_ids = list(combinations(ids, 2))  # pair any of two ids on file
     pair_titles = list(combinations(titles, 2)) # pair any of two titles on file
+
+    # pair_ids_titles = list(zip(pair_ids,pair_titles))
 
     # print(len(pair_titles))
 
@@ -99,7 +101,7 @@ if __name__ == '__main__':
         for ids, cs in zip(pair_ids, cos_sim):
             pair_writer.writerow([ids[0], ids[1], cs])
 
-    # create a csv file that contains 3 columns: id: document title 1, id: document 2, cosine similarity
+    # create a csv file that contains 3 columns: id: document title 1, id: document title 2, cosine similarity
     pair_lst = []
     pair_2nd = []
     for i in zip(pair_ids, pair_titles):
@@ -115,7 +117,6 @@ if __name__ == '__main__':
         pair_writer = csv.writer(file)
         for title, cs in zip(title_pair, cos_sim):
             pair_writer.writerow([title[0], title[1], cs])
-
 
     # build_csv_file_based_on_threthold(0.6, 0.7, new_pairs, cos_sim, new_pred_y)
 
