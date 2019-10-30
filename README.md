@@ -3,7 +3,7 @@
 In title_alignment_classifier.py file , I train a logistic regression classifier on Ted dataset, which contains a list
 of 1161‬ projects and, for each project, a set of 5 candidate documents obtained by an automatic pre-process.
 The dataset includes the judgment of 4 annotators and there should be 3 annotations for every document. The annotations are combined in the Aggregate column. Use the values of this column as
-the target labels to train and test you models.
+the target labels to train and test models.
 
 1.The train accuracy of model is 0.9231800766283524
 
