@@ -12,7 +12,6 @@ from sklearn.metrics import accuracy_score
 def splitDataFrameIntoSmaller(df, chunkSize = 7):
     """
     split a dataset by chunks
-
     :param df: dataset
     :param chunkSize: 7 because each project with documents occupy 7 rows on dataset
     :return: a list of chunks
@@ -50,9 +49,12 @@ def process_data (list_of_chunks):
         for x in range(1, 6):
             two_title.append([project_title, title[x]]) # pair each project title with its document title
         cos_similarity = []
+
+        title_vect = TfidfVectorizer()
+
         for y in two_title:
             # use Tfidf to process each title pair
-            title_vect = TfidfVectorizer(ngram_range=(2, 2), stop_words='english')
+
             title_vector = title_vect.fit_transform(y)
             cos_similarity.append(cosine_similarity(title_vector)[0][1])
         all_cosim.append(cos_similarity)
@@ -62,10 +64,10 @@ def process_data (list_of_chunks):
 
     flat_label = [item for sublist in label_data for item in sublist] # change a list of lists to a list
 
-    return flat_cos_sim, flat_label
+    return title_vect, flat_cos_sim, flat_label
 
 
-def train_model_and_test_model(train_cos_sim, train_label, test_cos_sim):
+def train_model_and_test_model(train_cos_sim, train_label,test_cos_sim):
     """
     Build logistic regression to train model and test model
     :param train_cos_sim: train_X
@@ -84,9 +86,19 @@ def train_model_and_test_model(train_cos_sim, train_label, test_cos_sim):
     test_X = np.array(test_cos_sim).reshape(-1, 1)
     pred_y = clf.predict(test_X) # predict the label of test data
     pred_label = pred_y.tolist()  # change numpy array to list
+
     # test_accuracy = accuracy_score(test_label, pred_label) # measure the accuracy between predict label and test label
 
-    return train_accuracy, pred_label
+    return clf, train_accuracy
+
+
+
+
+
+
+
+
+
 
 
 
