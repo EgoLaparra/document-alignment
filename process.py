@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def load_titles(csv_path, title_column):
     document_list = []
-    with open(csv_path) as csv_file:
+    with open(csv_path, encoding="utf8") as csv_file:
         reader = csv.reader(csv_file, delimiter='\t')
         next(reader)
         for document in reader:
@@ -81,5 +81,5 @@ if __name__ == "__main__":
         alignments = process_efficient_mode(source, target, clf, vectorizer)
     else:
         alignments = process_original_mode(source, target, clf, vectorizer)
-    with open(args.output, "w") as json_file:
+    with open(args.output, "w", encoding="utf8") as json_file:
         json.dump(alignments, json_file)
