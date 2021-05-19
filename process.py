@@ -61,8 +61,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Align documents based on title.')
     parser.add_argument('-s', '--source', dest="source", metavar="FILE",
                         help='Source input CSV file.')
+    parser.add_argument('-st', '--source_title', dest="source_title", type=int,
+                        help='Title column number in source input CSV file.', default=1)
     parser.add_argument('-t', '--target', dest="target", metavar="FILE",
                         help='Target input CSV file.')
+    parser.add_argument('-tt', '--target_title', dest="target_title", type=int,
+                        help='Title column number in target input CSV file.', default=0)
     parser.add_argument('-o', '--output', dest="output", metavar="FILE",
                         help='Output JSON file.')
     parser.add_argument('-m', '--model', dest="model", metavar="FILE",
@@ -75,8 +79,8 @@ if __name__ == "__main__":
 
     clf = joblib.load(args.model)
     vectorizer = joblib.load(args.vectorizer)
-    source = load_titles(args.source, 1)
-    target = load_titles(args.target, 0)
+    source = load_titles(args.source, args.source_title)
+    target = load_titles(args.target, args.target_title)
     if args.efficient:
         alignments = process_efficient_mode(source, target, clf, vectorizer)
     else:
